@@ -1,0 +1,30 @@
+void bpcua(GLfloat x, GLfloat y, GLfloat z, GLfloat ax, GLfloat bx, GLfloat cx) {
+	instance = Scale(x, y, z);
+	glUniformMatrix4fv(model_loc, 1, true, model * h_tt_bpcua * instance_h_tt_tuong * instance);
+	glUniformMatrix4fv(colors_loc, 1, true, Translate(ax / 255, bx / 255, cx / 255));
+	glDrawArrays(GL_TRIANGLES, firstpointlp, numpointslp);
+}
+void canhcua(GLfloat x, GLfloat y, GLfloat z, GLfloat ax, GLfloat bx, GLfloat cx) {
+	instance = Scale(x, y, z);
+	glUniformMatrix4fv(model_loc, 1, true, model * h_tt_bpcua * h_tt_cua * RotateY(cuay) * Translate(-x / 2, 0, 0) * instance);
+	glUniformMatrix4fv(colors_loc, 1, true, Translate(ax / 255, bx / 255, cx / 255));
+	glDrawArrays(GL_TRIANGLES, firstpointlp, numpointslp);
+}
+void khungcua() {
+	//khung trai
+	instance_h_tt_tuong = identity();
+	bpcua(0.017, 0.7, 0.03, 165, 42, 42);
+	//khungphai
+	instance_h_tt_tuong = Translate(0.3 - 0.017, 0, 0);
+	bpcua(0.017, 0.7, 0.03, 165, 42, 42);
+	//khungtren
+	instance_h_tt_tuong = Translate(0.15 - 0.017 / 2, 0.7 / 2 - 0.017 / 2, 0);
+	bpcua(0.3, 0.017, 0.03, 165, 42, 42);
+	//khungduoi
+	instance_h_tt_tuong = Translate(0.3 / 2 - 0.017 / 2, -0.7 / 2 + 0.017 / 2, 0);
+	bpcua(0.3, 0.017, 0.03, 165, 42, 42);
+	//canhcua
+	h_tt_cua = Translate(-0.017 / 2 + 0.283, 0, 0);
+	canhcua(0.266, 0.666, 0.03, 160, 40, 40);
+
+}
